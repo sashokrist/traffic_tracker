@@ -23,7 +23,7 @@ class VisitExportController extends Controller
         Storage::makeDirectory('reports');
 
         $handle = fopen(storage_path("app/{$filepath}"), 'w');
-        fputcsv($handle, ['Page URL', 'IP Address', 'Visited At']);
+        fputcsv($handle, ['Page URL', 'IP Address', 'Visited At', 'Referrer', 'Country', 'Region', 'City', 'ISP']);
 
         Visit::whereBetween('visited_at', [$from, $to])
             ->orderByDesc('visited_at')
@@ -33,13 +33,17 @@ class VisitExportController extends Controller
                         $visit->page_url,
                         $visit->ip_address,
                         $visit->visited_at,
+                        $visit->referrer ?? 'N/A',
+                        $visit->country ?? '',
+                        $visit->region ?? '',
+                        $visit->city ?? '',
+                        $visit->isp ?? '',
                     ]);
                 }
             });
 
         fclose($handle);
 
-        // Send email
         Mail::to(auth()->user()->email)->send(new VisitReportMail($filepath));
 
         return redirect()
