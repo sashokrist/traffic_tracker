@@ -17,7 +17,7 @@ class VisitReportService
                 ->selectRaw('COUNT(DISTINCT ip_address) as unique_visits')
                 ->whereBetween('visited_at', [$from, $to])
                 ->groupBy('page_url')
-                ->paginate(20);
+                ->get();;
         });
     }
 
