@@ -9,7 +9,15 @@ class Visit extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['ip_address', 'page_url', 'visited_at'];
+    protected $fillable = [
+        'ip_address',
+        'page_url',
+        'visited_at',
+        'country',
+        'region',
+        'city',
+        'isp',
+    ];
     public $timestamps = true; // or false if you don't want created_at/updated_atphp artisan migrate:status
 
 }

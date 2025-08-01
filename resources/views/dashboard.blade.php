@@ -68,8 +68,6 @@
                     @endforeach
                 </div>
             </div>
-            <div class="d-flex justify-content-center mt-3">
-            </div>
         </div>
 
         <!-- All Visits Section -->
@@ -81,6 +79,10 @@
                     <tr>
                         <th>Page URL</th>
                         <th>IP Address</th>
+                        <th>Country</th>
+                        <th>Region</th>
+                        <th>City</th>
+                        <th>Org</th>
                         <th>Visited At</th>
                     </tr>
                     </thead>
@@ -89,6 +91,10 @@
                         <tr>
                             <td>{{ $visit->page_url }}</td>
                             <td>{{ $visit->ip_address }}</td>
+                            <td>{{ $visit->country ?? '-' }}</td>
+                            <td>{{ $visit->region ?? '-' }}</td>
+                            <td>{{ $visit->city ?? '-' }}</td>
+                            <td>{{ $visit->organization ?? '-' }}</td>
                             <td>{{ $visit->visited_at }}</td>
                         </tr>
                     @endforeach
@@ -102,7 +108,10 @@
                             <div class="card mb-3 border-start border-5 border-primary shadow-sm">
                                 <div class="card-body">
                                     <h6 class="card-title text-truncate">{{ $visit->page_url }}</h6>
-                                    <p class="card-text mb-1">IP: {{ $visit->ip_address }}</p>
+                                    <p class="mb-1"><strong>IP:</strong> {{ $visit->ip_address }}</p>
+                                    <p class="mb-1"><strong>Country:</strong> {{ $visit->country ?? '-' }}</p>
+                                    <p class="mb-1"><strong>City:</strong> {{ $visit->city ?? '-' }}</p>
+                                    <p class="mb-1"><strong>Org:</strong> {{ $visit->organization ?? '-' }}</p>
                                     <small class="text-muted">{{ $visit->visited_at }}</small>
                                 </div>
                             </div>
@@ -111,6 +120,7 @@
                 </div>
             </div>
         </div>
+
         <div class="d-flex justify-content-center mt-3">
             {{ $allData->links('pagination::bootstrap-5') }}
         </div>

@@ -15,6 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('page_url');
             $table->string('ip_address');
+            $table->string('country')->nullable();
+            $table->string('region')->nullable();
+            $table->string('city')->nullable();
+            $table->string('isp')->nullable();
             $table->timestamp('visited_at');
             $table->timestamps();
         });
