@@ -1,9 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
+    @if(session('report_download'))
+        <div class="alert alert-success">
+            Report generated. <a href="{{ session('report_download') }}" class="btn btn-sm btn-outline-primary">Download CSV</a>
+        </div>
+    @endif
+    @if(session('message'))
+        <div class="alert alert-info">{{ session('message') }}</div>
+    @endif
     <div class="container py-4" id="theme-container">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2>Website Traffic Dashboard</h2>
+            <a href="{{ route('visits.export', ['from' => $from->toDateString(), 'to' => $to->toDateString()]) }}" class="btn btn-sm btn-outline-success ms-2">
+                Export CSV
+            </a>
             <div>
                 <button id="toggle-theme" class="btn btn-sm btn-secondary">Toggle Theme</button>
                 <button id="toggle-view" class="btn btn-sm btn-primary">Toggle View</button>
