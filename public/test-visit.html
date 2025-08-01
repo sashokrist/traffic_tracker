@@ -2,13 +2,71 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Test Page Visit</title>
+    <title>Auto Spare Parts Shop</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 1rem;
+            background-color: #f5f5f5;
+        }
+        header {
+            background-color: #003366;
+            color: white;
+            padding: 1rem;
+        }
+        .product {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 5px;
+        }
+        .product h3 {
+            margin-top: 0;
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.4rem 0.8rem;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Website Visit Test</h1>
 
-    <!-- Add your tracker script from Laravel -->
-    <script src="/js/tracker.js"></script>
+<header>
+    <h1>Auto Spare Parts Shop</h1>
+    <p>Buy high-quality car parts at affordable prices.</p>
+</header>
+
+<main>
+    <div class="product">
+        <h3>Brake Pads - Front (Set of 4)</h3>
+        <p>Compatible with: Toyota, Honda, Nissan</p>
+        <strong>Price: $49.99</strong><br>
+        <a href="#" class="btn">Add to Cart</a>
+    </div>
+
+    <div class="product">
+        <h3>Oil Filter - Bosch Premium</h3>
+        <p>Compatible with: BMW, Mercedes, Audi</p>
+        <strong>Price: $14.99</strong><br>
+        <a href="#" class="btn">Add to Cart</a>
+    </div>
+
+    <div class="product">
+        <h3>Spark Plugs - NGK Iridium (Set of 4)</h3>
+        <p>Compatible with: Ford, Mazda, Hyundai</p>
+        <strong>Price: $32.50</strong><br>
+        <a href="#" class="btn">Add to Cart</a>
+    </div>
+</main>
+
+<!-- Tracker script -->
+<script src="/js/tracker.js"></script>
 
 </body>
 </html>
