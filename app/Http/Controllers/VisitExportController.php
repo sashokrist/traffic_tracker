@@ -3,46 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Mail\VisitReportMail;
-use App\Models\Visit;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use App\Traits\GeneratesVisitReport;
 
 class VisitExportController extends Controller
 {
+    use GeneratesVisitReport;
 
     public function export(Request $request)
     {
         $from = Carbon::parse($request->get('from', now()->subDays(7)))->startOfDay();
         $to = Carbon::parse($request->get('to', now()))->endOfDay();
 
-        $filename = 'visit_report_' . now()->format('Ymd_His') . '.csv';
-        $filepath = 'reports/' . $filename;
-
-        Storage::makeDirectory('reports');
-
-        $handle = fopen(storage_path("app/{$filepath}"), 'w');
-        fputcsv($handle, ['Page URL', 'IP Address', 'Visited At', 'Referrer', 'Country', 'Region', 'City', 'ISP']);
-
-        Visit::whereBetween('visited_at', [$from, $to])
-            ->orderByDesc('visited_at')
-            ->chunk(100, function ($visits) use ($handle) {
-                foreach ($visits as $visit) {
-                    fputcsv($handle, [
-                        $visit->page_url,
-                        $visit->ip_address,
-                        $visit->visited_at,
-                        $visit->referrer ?? 'N/A',
-                        $visit->country ?? '',
-                        $visit->region ?? '',
-                        $visit->city ?? '',
-                        $visit->isp ?? '',
-                    ]);
-                }
-            });
-
-        fclose($handle);
+        $filepath = $this->generateVisitReport($from, $to);
+        $filename = basename($filepath);
 
         Mail::to(auth()->user()->email)->send(new VisitReportMail($filepath));
 
