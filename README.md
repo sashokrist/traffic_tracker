@@ -149,9 +149,9 @@ Route::middleware(['auth'])->group(function () {
 ```
 
 ### api.php
-
+Limit max two request per second
 ```php
-Route::get('/track', [VisitController::class, 'track']);
+Route::middleware('throttle:120,1')->get('/track', [VisitController::class, 'track']);
 ```
 
 ---
@@ -294,32 +294,6 @@ php artisan test --filter=VisitReportServiceTest
 ```
 ![unit-test.png](unit-test.png)
 ---
-
-## 🌐 `public/test-visit.html` Page
-
-This file is a test page that loads the `tracker.js` script to simulate a real visit.
-
-### ⚙️ How It Works
-
-- Page loads and triggers `tracker.js`
-- Makes request like:
-  ```http
-  GET /api/track?page=http://your-laravel-app/test-visit.html
-  ```
-- Logs IP, timestamp, and page URL to the database
-- Geo-location resolved if public IP
-
-### ✅ How to Use It
-
-1. Run the Laravel server:
-   ```bash
-   php artisan serve
-   ```
-2. Visit:
-   ```
-   http://127.0.0.1:8000/test-visit.html
-   ```
-3. Check logs and database entries under the `visits` table.
 
 ---
 
@@ -511,8 +485,12 @@ PRIMARY KEY (`id`)
 
 ```
 ---
+## 📸 Screenshots
+![welcome.png](welcome.png)
 
 ![dashboard.png](dashboard.png)
+
+![spare-part.png](spare-part.png)
 
 ## 📩 Contact
 
