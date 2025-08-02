@@ -12,10 +12,10 @@
     <div class="container py-4" id="theme-container">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2>Website Traffic Dashboard</h2>
-            <a href="{{ route('visits.export', ['from' => $from->toDateString(), 'to' => $to->toDateString()]) }}" class="btn btn-sm btn-outline-success ms-2">
-                Export CSV
-            </a>
             <div>
+                <a href="{{ route('visits.export', ['from' => $from->toDateString(), 'to' => $to->toDateString()]) }}" class="btn btn-sm btn-outline-success ms-2">
+                    Export CSV
+                </a>
                 <button id="toggle-theme" class="btn btn-sm btn-secondary">Toggle Theme</button>
                 <button id="toggle-view" class="btn btn-sm btn-primary">Toggle View</button>
             </div>
@@ -58,7 +58,7 @@
                 <div class="row">
                     @foreach($uniqueData as $row)
                         <div class="col-md-4">
-                            <div class="card mb-3 shadow-sm">
+                            <div class="card mb-3 shadow-sm" style="border: 5px solid red;">
                                 <div class="card-body">
                                     <h6 class="card-title text-truncate">{{ $row->page_url }}</h6>
                                     <p class="card-text">Unique IPs: <strong>{{ $row->unique_visits }}</strong></p>
@@ -82,7 +82,7 @@
                         <th>Country</th>
                         <th>Region</th>
                         <th>City</th>
-                        <th>Org</th>
+                        <th>Isp</th>
                         <th>Visited At</th>
                     </tr>
                     </thead>
@@ -94,7 +94,7 @@
                             <td>{{ $visit->country ?? '-' }}</td>
                             <td>{{ $visit->region ?? '-' }}</td>
                             <td>{{ $visit->city ?? '-' }}</td>
-                            <td>{{ $visit->organization ?? '-' }}</td>
+                            <td>{{ $visit->isp ?? '-' }}</td>
                             <td>{{ $visit->visited_at }}</td>
                         </tr>
                     @endforeach

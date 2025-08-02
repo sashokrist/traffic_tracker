@@ -7,6 +7,8 @@ use App\Http\Requests\TrackVisitRequest;
 use Illuminate\Http\Request;
 use App\Services\VisitTrackingService;
 use App\Services\LoggingService;
+use OpenApi\Annotations as OA;
+
 
 class VisitController extends Controller
 {
@@ -19,6 +21,34 @@ class VisitController extends Controller
         $this->logger = $logger;
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/track",
+     *     operationId="trackVisit",
+     *     tags={"Visits"},
+     *     summary="Track a page visit",
+     *     description="Tracks visits and logs them with geo location",
+     *     @OA\Parameter(
+     *         name="page",
+     *         in="query",
+     *         description="Full page URL",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(
+     *         response=204,
+     *         description="Visit logged successfully"
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Missing or invalid page parameter"
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Server error"
+     *     )
+     * )
+     */
     public function track(TrackVisitRequest $request)
     {
         $ip = $request->ip();
