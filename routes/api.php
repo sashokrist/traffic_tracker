@@ -19,4 +19,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/track', [VisitController::class, 'track']);
+Route::middleware('throttle:120,1')->get('/track', [VisitController::class, 'track']);
+
