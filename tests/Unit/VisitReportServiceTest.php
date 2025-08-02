@@ -37,31 +37,26 @@ class VisitReportServiceTest extends TestCase
 
     public function test_get_all_visits_returns_paginated_results()
     {
-        // Arrange
         $from = Carbon::now()->subDays(7);
         $to = Carbon::now();
 
-        // Insert test rows with identifiable tag
         $tag = 'test-tag-' . uniqid();
         Visit::factory()->count(30)->create([
             'visited_at' => Carbon::now()->subDays(3),
-            'page_url' => $tag, // for cleanup if needed
+            'page_url' => $tag,
         ]);
 
         $service = new VisitReportService();
 
-        // Act
         $result = $service->getAllVisits($from, $to);
 
-        // Assert
-        $this->assertEquals(20, $result->count()); // Laravel default page size
+        $this->assertEquals(20, $result->count());
         $this->assertTrue(
             Carbon::parse($result->first()->visited_at)
                 ->isAfter(\Carbon\Carbon::parse($result->last()->visited_at))
         );
 
 
-        // Optional: delete inserted rows
         Visit::where('page_url', $tag)->delete();
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\Storage;
 
 class VisitReportMail extends Mailable
 {
@@ -22,6 +23,9 @@ class VisitReportMail extends Mailable
     {
         return $this->subject('Website Visit Report')
             ->markdown('emails.visit_report')
-            ->attach(storage_path("app/{$this->filepath}"));
+            ->attach(Storage::path($this->filepath), [
+                'as' => basename($this->filepath),
+                'mime' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            ]);
     }
 }

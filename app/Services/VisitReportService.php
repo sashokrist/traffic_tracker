@@ -21,7 +21,7 @@ class VisitReportService
         });
     }
 
-    public function getAllVisits(Carbon $from, Carbon $to)
+    public function getAllVisits(Carbon $from, Carbon $to, int $perPage = 20)
     {
         return Visit::whereBetween('visited_at', [$from, $to])
             ->orderByDesc('visited_at')

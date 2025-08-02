@@ -10,7 +10,7 @@ class GeoIPService implements GeoLocatorInterface
 {
     public function locate(string $ip): array
     {
-      //  $ip = '62.73.122.119'; // Static for now (maybe mock/test), remove this for dynamic use
+        $ip = '62.73.122.119'; // Static for now (maybe mock/test), remove this for dynamic use
         try {
             $url = "http://ip-api.com/json/{$ip}";
             $response = Http::timeout(5)->get($url);

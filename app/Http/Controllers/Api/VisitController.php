@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\TrackVisitRequest;
 use Illuminate\Http\Request;
 use App\Services\VisitTrackingService;
 use App\Services\LoggingService;
@@ -18,16 +19,14 @@ class VisitController extends Controller
         $this->logger = $logger;
     }
 
-    public function track(Request $request)
+    public function track(TrackVisitRequest $request)
     {
         $ip = $request->ip();
-        $page = $request->query('page');
+        $page = $request->validated()['page'];
 
-        if (!$page) return response()->noContent();
+        $this->logger->info('Calling VisitTrackingService from VisitController');
 
-        $this->logger->info('Tracking request received', ['ip' => $ip, 'page' => $page]); // ← Add this
         try {
-            $this->logger->info('Calling VisitTrackingService from VisitController');
             $this->trackingService->trackVisit($ip, $page);
             return response()->noContent();
         } catch (\Throwable $e) {
