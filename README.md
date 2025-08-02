@@ -1,4 +1,4 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+![flow diagram](https://github.com/user-attachments/assets/3832f39a-be35-4560-9c1f-9347cdd62784)<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
 <a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
@@ -245,6 +245,9 @@ UI preferences (like dark mode and card view) are stored in localStorage for per
    ├── Visit::create()
    └── LoggingService
 ```
+!<?xml version="1.0" encoding="utf-8"?><Error><Code>AuthenticationFailed</Code><Message>Server failed to authenticate the request. Make sure the value of Authorization header is formed correctly including the signature.
+RequestId:d3dfcc24-201e-0024-1e7c-030ea5000000
+Time:2025-08-02T07:08:04.6422127Z</Message><AuthenticationErrorDetail>Signed expiry time [Sat, 02 Aug 2025 06:45:54 GMT] must be after signed start time [Sat, 02 Aug 2025 07:08:04 GMT]</AuthenticationErrorDetail></Error>[Uploading flow diagram.png…]()
 
 ---
 
