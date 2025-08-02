@@ -276,8 +276,6 @@ UI preferences (like dark mode and card view) are stored in localStorage for per
 
 ## 🔐 Swagger API documentation
 
-- php artisan l5-swagger:generate
-
 ```bash
 php artisan l5-swagger:generate
 ```
