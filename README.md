@@ -23,6 +23,7 @@ A Laravel-based tracking system for logging website visits, resolving visitor lo
 - Dashboard blade with dark mode toggle and table/card view switch
 - Caching and logging support
 - Clean service-based Laravel architecture
+- Swagger API documentation
 
 ---
 
@@ -270,6 +271,16 @@ UI preferences (like dark mode and card view) are stored in localStorage for per
 - Geo via interface abstraction
 - Logging via LoggingService
 - Optional queueing for mail
+
+---
+
+## 🔐 Swagger API documentation
+
+- php artisan l5-swagger:generate
+
+Visit:
+
+http://localhost:8000/api/documentation#/Visits/trackVisit
 
 ---
 
