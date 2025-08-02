@@ -278,6 +278,9 @@ UI preferences (like dark mode and card view) are stored in localStorage for per
 
 - php artisan l5-swagger:generate
 
+```bash
+php artisan l5-swagger:generate
+```
 Visit:
 
 http://localhost:8000/api/documentation#/Visits/trackVisit
@@ -287,7 +290,7 @@ http://localhost:8000/api/documentation#/Visits/trackVisit
 ## 🧪 Testing
 
 ```bash
-php artisan test
+php artisan l5-swagger:generate
 php artisan test --filter=VisitReportServiceTest
 ```
 
