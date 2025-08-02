@@ -23,6 +23,7 @@ A Laravel-based tracking system for logging website visits, resolving visitor lo
 - Dashboard blade with dark mode toggle and table/card view switch
 - Caching and logging support
 - Clean service-based Laravel architecture
+- Swagger API documentation
 
 ---
 
@@ -273,10 +274,21 @@ UI preferences (like dark mode and card view) are stored in localStorage for per
 
 ---
 
+## 🔐 Swagger API documentation
+
+```bash
+php artisan l5-swagger:generate
+```
+Visit:
+
+http://localhost:8000/api/documentation#/Visits/trackVisit
+
+---
+
 ## 🧪 Testing
 
 ```bash
-php artisan test
+php artisan l5-swagger:generate
 php artisan test --filter=VisitReportServiceTest
 ```
 
@@ -406,4 +418,3 @@ PRIMARY KEY (`id`)
 ## 📩 Contact
 
 Built by Alexander Keremidarov. Contributions welcome.
-
