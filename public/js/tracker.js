@@ -1,6 +1,6 @@
 (function () {
     const pageUrl = window.location.href;
-    const trackingUrl = 'http://127.0.0.1:8000/api/track?page=' + encodeURIComponent(pageUrl);
+    const trackingUrl = `http://web-tracker.test/api/track?page=${encodeURIComponent(window.location.href)}`;
 
     console.log("Sending visit to:", trackingUrl);
 

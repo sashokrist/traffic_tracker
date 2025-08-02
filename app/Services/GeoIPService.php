@@ -2,14 +2,15 @@
 
 namespace App\Services;
 
+use App\Contracts\GeoLocatorInterface;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
-class GeoIPService
+class GeoIPService implements GeoLocatorInterface
 {
-    public function getGeo(string $ip): array
+    public function locate(string $ip): array
     {
-        $ip = '62.73.122.119';
+      //  $ip = '62.73.122.119'; // Static for now (maybe mock/test), remove this for dynamic use
         try {
             $url = "http://ip-api.com/json/{$ip}";
             $response = Http::timeout(5)->get($url);

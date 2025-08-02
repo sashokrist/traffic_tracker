@@ -2,28 +2,33 @@
 
 namespace App\Services;
 
+use App\Contracts\GeoLocatorInterface;
 use App\Models\Visit;
-use App\Models\Log as SyncLog;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
-use App\Services\GeoIPService;
 
 class VisitTrackingService
 {
-    protected GeoIPService $geoService;
+    protected GeoLocatorInterface $geoService;
+    protected LoggingService $logger;
 
-    public function __construct(GeoIPService $geoService)
+    public function __construct(GeoLocatorInterface $geoService, LoggingService $logger)
     {
         $this->geoService = $geoService;
+        $this->logger = $logger;
     }
 
     public function trackVisit(string $ip, string $page): void
     {
         try {
-            $geo = $this->geoService->getGeo($ip);
-            Log::info('Geo response', ['ip' => $ip, 'geo' => $geo]);
+            $geo = $this->geoService->locate($ip);
+            $this->logger->info('Geo response', ['ip' => $ip, 'geo' => $geo]);
 
             DB::transaction(function () use ($ip, $page, $geo) {
+                $this->logger->info('Inserting visit', [
+                    'ip' => $ip,
+                    'page' => $page,
+                    'geo' => $geo,
+                ]);
                 Visit::create([
                     'ip_address' => $ip,
                     'page_url'   => $page,
@@ -34,18 +39,10 @@ class VisitTrackingService
                     'isp'        => $geo['isp'] ?? null,
                 ]);
 
-                SyncLog::log(
-                    'guest',
-                    $ip,
-                    'success',
-                    'Page visit tracked with geo'
-                );
+                $this->logger->success('guest', $ip, 'Page visit tracked with geo');
             });
         } catch (\Throwable $e) {
-            Log::error('VisitTrackingService error', ['error' => $e->getMessage()]);
-
-            SyncLog::log('guest', $ip, 'error', $e->getMessage());
-
+            $this->logger->error('guest', $ip, $e->getMessage());
             throw $e;
         }
     }
