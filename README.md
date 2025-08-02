@@ -245,7 +245,7 @@ UI preferences (like dark mode and card view) are stored in localStorage for per
    ├── Visit::create()
    └── LoggingService
 ```
-
+![flow diagram.png](flow%20diagram.png)
 ---
 
 ## 💾 Caching
@@ -320,21 +320,58 @@ This file is a test page that loads the `tracker.js` script to simulate a real v
    ```
 3. Check logs and database entries under the `visits` table.
 
-## 📦 Deployment Notes
-
-Ensure `storage/app/reports` is writable for Excel exports. You may also want to configure cron:
-
-```
-* * * * * php /path/to/artisan schedule:run >> /dev/null 2>&1
-```
-
 ---
 
-## 🧩 Extending
+## 🌐 Tracked Pages Overview
 
-Want to add device/browser detection or user agents? Extend `VisitTrackingService` or create a `VisitEnrichmentService`.
+The following raw PHP pages are tracked using the `tracker.js` script embedded in each page. These pages generate **unique visits** stored in the Laravel backend.
 
----
+### 🧩 `site/spare-part.php`
+
+- A standalone PHP page used to list or display spare parts.
+- Includes the `tracker.js` script to log visits.
+- Tracks visitors' IP, location, and timestamp.
+
+### 🛒 `cart.php`
+
+- Represents the shopping cart page.
+- Once loaded, it triggers the tracker and stores visit data.
+- Useful for analyzing how often users visit the cart without checkout.
+
+### 📄 `about.php`
+
+- Static page with information about the business or website.
+- Visit tracking helps determine interest in company background or mission.
+- Same tracking mechanism as all other pages.
+
+### ✅ How It Works
+
+All these pages include:
+
+```html
+<script src="http://your-domain/js/tracker.js" defer></script>
+
+```
+On page load, the script sends a request like:
+
+```http
+GET /api/track?page=http://your-domain/site/spare-part.php
+
+GET /api/track?page=http://your-domain/cart.php
+
+GET /api/track?page=http://your-domain/about.php
+``` 
+The Laravel backend logs:
+
+IP address
+
+Page URL
+
+Country, region, city, ISP (if available)
+
+Timestamp
+
+Data is then visible in the admin dashboard (/dashboard) and included in email reports.
 
 ## 🔗 Related Files Overview
 
@@ -350,6 +387,65 @@ Want to add device/browser detection or user agents? Extend `VisitTrackingServic
 | `VisitReportService`          | Aggregates report data               |
 | `GeneratesVisitReport`        | Trait for Excel creation             |
 | `Visit`                       | Eloquent model for visits            |
+
+---
+## 📂 Design patterns used in this project
+
+1. Service Pattern (VisitTrackingService, LoggingService)
+Purpose:
+Encapsulates business logic into dedicated service classes instead of placing it in controllers or models.
+
+How it's used:
+
+VisitController delegates the core logic to VisitTrackingService, which:
+
+Retrieves and parses IP and location data
+
+Stores visit records into the database
+
+LoggingService provides a reusable way to log events, making the logic cleaner and easier to test.
+
+✅ Why it's important:
+
+Keeps controllers lightweight and focused on request handling, improves testability and separation of concerns.
+
+2. Dependency Injection (via Constructor Injection)
+Purpose:
+Promotes loose coupling by injecting dependencies (e.g., services) instead of hardcoding them.
+
+How it's used:
+
+VisitController receives VisitTrackingService and LoggingService via its constructor.
+
+You rely on Laravel's IoC container to resolve and inject dependencies automatically.
+
+✅ Why it's important:
+
+Makes your components interchangeable, mockable in tests, and easier to extend or replace.
+
+3. DTO-like Behavior using Form Request Classes (TrackVisitRequest)
+Purpose:
+Separates validation logic and acts like a Data Transfer Object (DTO).
+
+How it's used:
+
+You use TrackVisitRequest to encapsulate and validate the incoming request to /track.
+
+✅ Why it's important:
+
+Moves validation out of the controller, ensures clean data input, and centralizes request validation logic.
+
+✅ Summary
+
+Pattern	Role in Your Project
+
+Service Pattern	Core logic in VisitTrackingService & LoggingService
+
+Dependency Injection	Promotes decoupled, testable code
+
+Form Request / DTO	Validates and encapsulates request data cleanly
+
+![design diagram.png](design%20diagram.png)
 
 ---
 
