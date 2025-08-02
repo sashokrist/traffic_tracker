@@ -283,6 +283,7 @@ Visit:
 
 http://localhost:8000/api/documentation#/Visits/trackVisit
 
+![swagger.png](swagger.png)
 ---
 
 ## 🧪 Testing
@@ -291,7 +292,7 @@ http://localhost:8000/api/documentation#/Visits/trackVisit
 php artisan l5-swagger:generate
 php artisan test --filter=VisitReportServiceTest
 ```
-
+![unit-test.png](unit-test.png)
 ---
 
 ## 🌐 `public/test-visit.html` Page
@@ -508,8 +509,10 @@ CREATE TABLE `logs` (
 PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-
+```
 ---
+
+![dashboard.png](dashboard.png)
 
 ## 📩 Contact
 
