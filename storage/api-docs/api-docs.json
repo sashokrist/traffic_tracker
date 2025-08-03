@@ -36,6 +36,46 @@
                     }
                 }
             }
+        },
+        "/dashboard": {
+            "get": {
+                "tags": [
+                    "Dashboard"
+                ],
+                "summary": "Get visit statistics for dashboard",
+                "description": "Returns unique and all visit data within the selected time range",
+                "operationId": "a92dff3ea055c0a594f425e852840a68",
+                "parameters": [
+                    {
+                        "name": "from",
+                        "in": "query",
+                        "description": "Start date (YYYY-MM-DD)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "date"
+                        }
+                    },
+                    {
+                        "name": "to",
+                        "in": "query",
+                        "description": "End date (YYYY-MM-DD)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "date"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Dashboard view loaded successfully"
+                    },
+                    "500": {
+                        "description": "Server error while loading dashboard"
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -51,6 +91,10 @@
         {
             "name": "Visits",
             "description": "Visits"
+        },
+        {
+            "name": "Dashboard",
+            "description": "Dashboard"
         }
     ]
 }

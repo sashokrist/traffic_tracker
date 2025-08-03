@@ -12,11 +12,45 @@ class DashboardController extends Controller
 {
     protected $visitService;
 
+
+
     public function __construct(VisitReportService $visitService)
     {
         $this->visitService = $visitService;
     }
 
+    /**
+     * Display dashboard statistics.
+     *
+     * @OA\Get(
+     *     path="/dashboard",
+     *     tags={"Dashboard"},
+     *     summary="Get visit statistics for dashboard",
+     *     description="Returns unique and all visit data within the selected time range",
+     *     @OA\Parameter(
+     *         name="from",
+     *         in="query",
+     *         required=false,
+     *         description="Start date (YYYY-MM-DD)",
+     *         @OA\Schema(type="string", format="date")
+     *     ),
+     *     @OA\Parameter(
+     *         name="to",
+     *         in="query",
+     *         required=false,
+     *         description="End date (YYYY-MM-DD)",
+     *         @OA\Schema(type="string", format="date")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Dashboard view loaded successfully",
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Server error while loading dashboard"
+     *     )
+     * )
+     */
     public function index(Request $request)
     {
         $ip = $request->ip();

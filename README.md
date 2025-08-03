@@ -40,6 +40,13 @@ composer install
 php artisan key:generate
 php artisan migrate
 php artisan storage:link
+php artisan serve
+
+Run  project:
+http://localhost:8000
+
+or if use virtual host:
+http://virtual-host
 ```
 
 ---
